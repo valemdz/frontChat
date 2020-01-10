@@ -1,0 +1,58 @@
+<br>
+
+<div class='container'> 
+  <div class="row">
+    <div class="col-sm-10" >
+      <div class="card">
+        <div class="card-header" *ngIf="!connected">
+          <form class="form-inline" >
+            <input name="usuario" placeholder="usuario" [(ngModel)]="mensaje.username" class="form-control mr-2">
+            <button [disabled] = "!mensaje.username"
+            type="button" class="btn btn-primary" (click)="conectar()" >Conectar</button>
+          </form>  
+          
+        </div>
+        <div class="card-header" *ngIf="connected">  
+          <form class="form-inline" >       
+            @{{mensaje.username}}
+            <button type="button" class="btn btn-danger  ml-2" (click)="desconectar()" >Desconectar</button>
+          </form>  
+        </div>
+        <div class="card-body" #scrollChat [scrollTop]="scrollChat.scrollHeight" style="overflow-y: scroll; height: 360px;"  *ngIf="connected">
+          <ul  class="list-group list-group-flush">
+            <li *ngFor="let m of mensajes" class="list-group-item">                                   
+              <div *ngIf="m.tipo!='NUEVO_USUARIO'" >
+                <div>{{m.fecha | date:'shortTime' }} 
+                    <div  [ngStyle]="{'color':m.color}" >
+                      &nbsp;@{{m.username}} dice:
+                    </div>                   
+                </div>    
+                {{m.texto}}
+              </div>              
+              <div *ngIf="m.tipo=='NUEVO_USUARIO'" class='form-inline'>
+                {{m.fecha | date:'shortTime' }}  {{m.texto}}
+                <div  [ngStyle]="{'color':m.color}" >
+                  &nbsp;@{{m.username}} 
+                </div>                                  
+              </div>              
+            </li>           
+          </ul>          
+        </div>
+        <div class="card-footer" *ngIf="connected"  >
+          <form class="form-inline">
+            <div class="form-group mr-2" >
+              <input class="form-control" #busqueda type='text'  [(ngModel)]="mensaje.texto"
+                     (keydown)=onKeydownEvent(busqueda.value) name = 'mensaje'
+                     (keyup.enter)="enviar()" placeholder="escribir mensaje" >                  
+            </div>              
+            <button type="button" class="btn btn-success" (click)="enviar()" >Enviar</button> 
+          </form>            
+          <span>{{escribiendo}}</span>   
+        </div>
+      </div>
+    </div>
+  </div>  
+</div>  
+
+
+
