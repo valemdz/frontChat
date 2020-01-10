@@ -23,7 +23,7 @@
             <li *ngFor="let m of mensajes" class="list-group-item">                                   
               <div *ngIf="m.tipo!='NUEVO_USUARIO'" >
                 <div>{{m.fecha | date:'shortTime' }} 
-                    <div  [ngStyle]="{'color':m.color}" >
+                    <div  [ngStyle]="{'color':m.color}"  class='form-inline' >
                       &nbsp;@{{m.username}} dice:
                     </div>                   
                 </div>    

@@ -65,7 +65,7 @@ export class ChatComponent implements OnInit {
         this.client.subscribe( '/chat/escribiendo', 
                                 e => {                                 
                                   this.escribiendo = e.body; 
-                                  setTimeout( () => this.escribiendo = '' , 100 );
+                                  setTimeout( () => this.escribiendo = '' , 1000 );
                                 });
         
         this.solicitarHistorial();
@@ -76,8 +76,9 @@ export class ChatComponent implements OnInit {
 
     this.client.onDisconnect = ( frame ) =>{
       console.log( 'Desconectados:' +  !this.client.connected + ' : ' + frame );
-      this.connected = false;    
-      this.mensaje.username = '';    
+      this.connected = false;
+      this.mensaje = new Mensaje();
+      this.mensajes = [];
     }
 
   }
