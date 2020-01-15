@@ -1,0 +1,16 @@
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Username</th>
+        <th scope="col">mensaje</th>        
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let n of _wsocket.notis" >
+        <th scope="row">{{n.id}}</th>
+        <td>{{n.username}}</td>
+        <td>{{n.mensaje}}</td>        
+      </tr>      
+    </tbody>
+  </table>

@@ -5,18 +5,23 @@ import { AppComponent } from './app.component';
 import { ChatComponent } from './chat/chat.component';
 import { RouterModule, Routes } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { NotificacionesComponent } from './notificaciones/notificaciones.component';
+import { WebSocketService } from './services/web-socket.service';
+
 
 
 const appRoutes:Routes = [  
+  { path:'notificacion', component:NotificacionesComponent },
   { path:'chat', component:ChatComponent },
-  { path:'**', redirectTo:'chat', pathMatch: 'full' }
+  { path:'**', redirectTo:'notificacion', pathMatch: 'full' }
 ];
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    ChatComponent
+    ChatComponent,
+    NotificacionesComponent,    
   ],
   imports: [
     BrowserModule,
@@ -25,7 +30,7 @@ const appRoutes:Routes = [
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes, {useHash:true}), 
   ],
-  providers: [],
+  providers: [ WebSocketService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
