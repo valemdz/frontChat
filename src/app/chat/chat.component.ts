@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Client } from '@stomp/stompjs';
 import * as SockJS from 'sockjs-client';
 import { Mensaje } from './models/mensaje';
+import { UsuarioService } from '../services/usuario.service';
 
 
 
@@ -25,7 +26,7 @@ export class ChatComponent implements OnInit {
 
   clienteId:string;
 
-  constructor() { 
+  constructor( public _us: UsuarioService ) { 
     this.clienteId =  'id-' + new Date().getUTCMilliseconds()
                             + '-' + Math.random().toString(36).substr(2);
   }
@@ -83,6 +84,7 @@ export class ChatComponent implements OnInit {
   }
 
   conectar(){  
+    this._us.usernameSource.next( this.mensaje.username );
     this.client.activate();    
   }
 

@@ -16,6 +16,11 @@ export class WebSocketService {
 
   constructor() {
 
+    
+
+   }
+
+   inicializar(){
       this.client = new Client();
 
       this.client.webSocketFactory = () => {
@@ -33,10 +38,9 @@ export class WebSocketService {
         console.log( 'Desconectados:' +  !this.client.connected + ' : ' + frame );
         this.connected = false;           
       }
-
    }
 
-   conectar(){  
+   conectar(){      
       this.client.activate();    
    }
 

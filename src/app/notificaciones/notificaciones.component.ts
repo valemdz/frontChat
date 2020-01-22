@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { WebSocketService } from '../services/web-socket.service';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { UsuarioService } from '../services/usuario.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-notificaciones',
@@ -9,18 +10,29 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 })
 export class NotificacionesComponent implements OnInit, OnDestroy {
 
-  username = 'VTORRES';
-  constructor( public _wsocket: WebSocketService ) {     
+  userNameSubscription:Subscription;
+  constructor( public _wsocket: WebSocketService, public _us:UsuarioService ) {     
   }
 
   ngOnInit() {
-      this._wsocket.username = this.username;
-      this._wsocket.conectar();
-      console.log( this.username );
+     this.escucharUserName();
+  }
+
+  escucharUserName(){
+      this._us.usernameSource.subscribe( username => {
+
+        this._wsocket.username = username;
+        this._wsocket.inicializar();
+        this._wsocket.conectar();
+        console.log( username );
+      });
+
   }
 
   ngOnDestroy(): void {
-     // this._wsocket.desconectar();
+     if( this.userNameSubscription ){
+        this.userNameSubscription.unsubscribe();
+     }
   }
 
 }

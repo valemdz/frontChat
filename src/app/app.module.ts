@@ -7,6 +7,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NotificacionesComponent } from './notificaciones/notificaciones.component';
 import { WebSocketService } from './services/web-socket.service';
+import { UsuarioService } from './services/usuario.service';
 
 
 
@@ -30,7 +31,7 @@ const appRoutes:Routes = [
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes, {useHash:true}), 
   ],
-  providers: [ WebSocketService ],
+  providers: [ WebSocketService, UsuarioService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
